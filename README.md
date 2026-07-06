@@ -27,7 +27,8 @@ pnpm dev
 
 - Site: http://localhost:3000
 - Admin: http://localhost:3000/admin, `admin@lichtblick.example` / `lichtblick-demo`
-  (demo credentials, seeded in code; rotate them before any public deployment)
+  (local demo credentials only; for deployments, set `ADMIN_EMAIL` and `ADMIN_PASSWORD`
+  in the environment before seeding and these defaults are never used)
 
 To reseed from scratch: stop the server, delete `lichtblick.db`, `media/`, and `.next/cache/images`, then run `pnpm seed` and hard-refresh the browser (media filenames are deterministic and cached aggressively).
 

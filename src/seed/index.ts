@@ -6,8 +6,11 @@ import config from '../payload.config'
 import { imageBuffer, PALETTES, type Palette, type Variant } from './images'
 import { richText } from './richText'
 
-const ADMIN_EMAIL = 'admin@lichtblick.example'
-const ADMIN_PASSWORD = 'lichtblick-demo'
+// Production: set ADMIN_EMAIL and ADMIN_PASSWORD in the environment so the
+// public demo credentials below never exist in a deployed database.
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@lichtblick.example'
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'lichtblick-demo'
+const USING_DEMO_CREDENTIALS = !process.env.ADMIN_EMAIL && !process.env.ADMIN_PASSWORD
 
 type ProjectSeed = {
   category: 'commercial' | 'interior' | 'residential'
@@ -231,7 +234,12 @@ async function seed() {
       collection: 'users',
       data: { email: ADMIN_EMAIL, password: ADMIN_PASSWORD },
     })
-    payload.logger.info(`Created admin user ${ADMIN_EMAIL} / ${ADMIN_PASSWORD}`)
+    // never print an env-provided password into (deployment) logs
+    payload.logger.info(
+      USING_DEMO_CREDENTIALS
+        ? `Created admin user ${ADMIN_EMAIL} / ${ADMIN_PASSWORD}`
+        : `Created admin user ${ADMIN_EMAIL} (password from environment)`,
+    )
   }
 
   let heroProjectId: number | undefined
