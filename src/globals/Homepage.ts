@@ -13,13 +13,23 @@ export const Homepage: GlobalConfig = {
   },
   fields: [
     {
+      name: 'heroImage',
+      label: 'Hero-Bild',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        description:
+          'Eigenes Bild für den Hero der Startseite. Ohne Auswahl wird das Titelbild des Hero-Projekts verwendet.',
+      },
+    },
+    {
       name: 'heroProject',
       label: 'Hero-Projekt',
       type: 'relationship',
       relationTo: 'projects',
       admin: {
         description:
-          'Das Titelbild dieses Projekts wird zum Hero der Startseite. Ohne Auswahl wird das neueste hervorgehobene Projekt verwendet.',
+          'Ohne eigenes Hero-Bild wird das Titelbild dieses Projekts zum Hero der Startseite. Ohne Auswahl wird das neueste hervorgehobene Projekt verwendet.',
       },
     },
     {
@@ -27,7 +37,7 @@ export const Homepage: GlobalConfig = {
       label: 'Leitsatz',
       type: 'text',
       required: true,
-      defaultValue: 'Innenräume aus Kalkputz, Holz und Licht. Für Wohnen und Arbeit.',
+      defaultValue: 'Räume aus Kalkputz, Holz und ruhigem Licht. Zum Wohnen, Arbeiten und Ankommen.',
       admin: {
         description: 'Eine Zeile, unten links im Hero: leise, kein Werbeslogan.',
       },
