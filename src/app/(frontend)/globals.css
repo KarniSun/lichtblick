@@ -1,0 +1,145 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Palette — only these four (see design brief) */
+  --color-kalk: #ede8e0; /* Kalkputz — primary background */
+  --color-nussbaum: #3b2e27; /* Nussbaum — primary text */
+  --color-rauch: #a69b8d; /* Rauchquarz — decorative/hairline use only */
+  --color-patina: #5c6b5d; /* Patina — single accent, sparing */
+
+  /* Rauchquarz darkened to a legible warm taupe (~5:1 on Kalkputz) —
+     use for real muted text (captions, meta, secondary copy) so it
+     passes WCAG AA. Plain #a69b8d only clears ~2.2:1 and fails. */
+  --color-muted: #6b6157;
+
+  /* Aliases used by pre-redesign pages — same palette, older names */
+  --color-paper: #ede8e0;
+  --color-ink: #3b2e27;
+  --color-stone: #a69b8d;
+  --color-line: color-mix(in oklab, #a69b8d 50%, #ede8e0);
+  --color-umber: #5c6b5d;
+
+  --font-sans: var(--font-hanken), 'Helvetica Neue', Arial, sans-serif;
+  --font-display: var(--font-fraunces), Georgia, serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-kalk text-nussbaum font-sans antialiased;
+  }
+
+  ::selection {
+    background: var(--color-patina);
+    color: var(--color-kalk);
+  }
+
+  /* Visible keyboard focus everywhere — quiet Patina ring, not the default blue */
+  :focus-visible {
+    outline: 2px solid var(--color-patina);
+    outline-offset: 2px;
+    border-radius: 1px;
+  }
+}
+
+/* Quiet caption/meta text — sentence case, no uppercase */
+.label {
+  @apply text-xs tracking-wide text-muted;
+}
+
+/* Scroll-triggered fade reveal (driven by the <Reveal> component) */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal[data-visible='true'] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Clip-path image reveal — no translate, just a quiet unveiling */
+.reveal--clip {
+  transform: none;
+  clip-path: inset(0 0 18% 0);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    clip-path 1s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal--clip[data-visible='true'] {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Resetting (element fully offscreen) is instant: exit transitions would run
+   mid-scroll and jank the whole page. Only the entry animation is animated. */
+.reveal[data-visible='false'],
+.reveal--clip[data-visible='false'] {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal,
+  .reveal--clip {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+    transition: none;
+  }
+}
+
+/* Rich text (Lexical) content */
+.rich-text {
+  @apply text-base leading-relaxed text-nussbaum/90;
+}
+
+.rich-text p + p {
+  margin-top: 1.25em;
+}
+
+.rich-text h2,
+.rich-text h3 {
+  @apply font-display text-nussbaum;
+  margin-top: 1.75em;
+  margin-bottom: 0.5em;
+}
+
+.rich-text h2 {
+  font-size: 1.5rem;
+}
+
+.rich-text h3 {
+  font-size: 1.25rem;
+}
+
+.rich-text a {
+  color: var(--color-patina);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.rich-text ul,
+.rich-text ol {
+  margin-top: 1.25em;
+  padding-left: 1.25em;
+}
+
+.rich-text ul {
+  list-style: disc;
+}
+
+.rich-text ol {
+  list-style: decimal;
+}

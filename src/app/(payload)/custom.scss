@@ -1,0 +1,120 @@
+/* Studio Lichtblick admin theme.
+   Payload's defaults live in @layer payload-default, so these unlayered
+   overrides win without !important. Palette: Kalkputz #ede8e0, Nussbaum
+   #3b2e27, Rauchquarz #a69b8d (decorative), Patina #5c6b5d (accent).
+   Loaded only by the (payload) layout: nothing here reaches the frontend. */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz@9..144&family=Hanken+Grotesk:wght@400;500;600&display=swap');
+
+:root {
+  --font-body: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  /* Sharp, editorial corners */
+  --style-radius-s: 0px;
+  --style-radius-m: 1px;
+  --style-radius-l: 2px;
+
+  /* Warm neutral ramp. Hue comes from the brand (paper white toward deep
+     walnut), but the LIGHTNESS follows Payload's default perceptual curve:
+     fine steps at the light end so page / card / border / input surfaces
+     stay distinct, steep steps at the dark end so text and buttons keep
+     strong contrast. A linear Kalkputz-to-Nussbaum ramp read as mush. */
+  --color-base-0: #fbf9f5;
+  --color-base-50: color-mix(in oklab, #2c231d 3%, #fbf9f5);
+  --color-base-100: color-mix(in oklab, #2c231d 7%, #fbf9f5);
+  --color-base-150: color-mix(in oklab, #2c231d 11%, #fbf9f5);
+  --color-base-200: color-mix(in oklab, #2c231d 16%, #fbf9f5);
+  --color-base-250: color-mix(in oklab, #2c231d 21%, #fbf9f5);
+  --color-base-300: color-mix(in oklab, #2c231d 27%, #fbf9f5);
+  /* 400 upward is text territory (field descriptions use elevation-400):
+     darker than a neutral curve so secondary text clears WCAG AA on paper */
+  --color-base-350: color-mix(in oklab, #2c231d 36%, #fbf9f5);
+  --color-base-400: color-mix(in oklab, #2c231d 63%, #fbf9f5);
+  --color-base-450: color-mix(in oklab, #2c231d 67%, #fbf9f5);
+  --color-base-500: color-mix(in oklab, #2c231d 70%, #fbf9f5);
+  --color-base-550: color-mix(in oklab, #2c231d 73%, #fbf9f5);
+  --color-base-600: color-mix(in oklab, #2c231d 76%, #fbf9f5);
+  --color-base-650: color-mix(in oklab, #2c231d 78%, #fbf9f5);
+  --color-base-700: color-mix(in oklab, #2c231d 80%, #fbf9f5);
+  --color-base-750: color-mix(in oklab, #2c231d 85%, #fbf9f5);
+  --color-base-800: color-mix(in oklab, #2c231d 89%, #fbf9f5);
+  --color-base-850: color-mix(in oklab, #2c231d 93%, #fbf9f5);
+  --color-base-900: color-mix(in oklab, #2c231d 96%, #fbf9f5);
+  --color-base-950: color-mix(in oklab, #2c231d 98%, #fbf9f5);
+  --color-base-1000: #2c231d;
+
+  /* Inputs sit just above the page surface */
+  --theme-input-bg: #fdfcfa;
+
+  /* Accent ramp (focus rings, selected states, links): Patina over paper */
+  --color-blue-50: color-mix(in oklab, #5c6b5d 6%, #fbf9f5);
+  --color-blue-100: color-mix(in oklab, #5c6b5d 12%, #fbf9f5);
+  --color-blue-150: color-mix(in oklab, #5c6b5d 18%, #fbf9f5);
+  --color-blue-200: color-mix(in oklab, #5c6b5d 24%, #fbf9f5);
+  --color-blue-250: color-mix(in oklab, #5c6b5d 30%, #fbf9f5);
+  --color-blue-300: color-mix(in oklab, #5c6b5d 37%, #fbf9f5);
+  --color-blue-350: color-mix(in oklab, #5c6b5d 48%, #fbf9f5);
+  --color-blue-400: color-mix(in oklab, #5c6b5d 62%, #fbf9f5);
+  --color-blue-450: color-mix(in oklab, #5c6b5d 78%, #fbf9f5);
+  --color-blue-500: #5c6b5d;
+  --color-blue-550: color-mix(in oklab, #3b2e27 10%, #5c6b5d);
+  --color-blue-600: color-mix(in oklab, #3b2e27 20%, #5c6b5d);
+  --color-blue-650: color-mix(in oklab, #3b2e27 30%, #5c6b5d);
+  --color-blue-700: color-mix(in oklab, #3b2e27 40%, #5c6b5d);
+  --color-blue-750: color-mix(in oklab, #3b2e27 50%, #5c6b5d);
+  --color-blue-800: color-mix(in oklab, #3b2e27 60%, #5c6b5d);
+  --color-blue-850: color-mix(in oklab, #3b2e27 70%, #5c6b5d);
+  --color-blue-900: color-mix(in oklab, #3b2e27 80%, #5c6b5d);
+  --color-blue-950: color-mix(in oklab, #3b2e27 90%, #5c6b5d);
+
+  /* Success (published pills, confirmations): also Patina, it reads as
+     "calm and done" in this palette. Error/warning stay default so
+     destructive actions remain unmistakable. */
+  --color-success-50: color-mix(in oklab, #5c6b5d 6%, #fbf9f5);
+  --color-success-100: color-mix(in oklab, #5c6b5d 12%, #fbf9f5);
+  --color-success-150: color-mix(in oklab, #5c6b5d 18%, #fbf9f5);
+  --color-success-200: color-mix(in oklab, #5c6b5d 24%, #fbf9f5);
+  --color-success-250: color-mix(in oklab, #5c6b5d 30%, #fbf9f5);
+  --color-success-300: color-mix(in oklab, #5c6b5d 37%, #fbf9f5);
+  --color-success-350: color-mix(in oklab, #5c6b5d 48%, #fbf9f5);
+  --color-success-400: color-mix(in oklab, #5c6b5d 62%, #fbf9f5);
+  --color-success-450: color-mix(in oklab, #5c6b5d 78%, #fbf9f5);
+  --color-success-500: #5c6b5d;
+  --color-success-550: color-mix(in oklab, #3b2e27 10%, #5c6b5d);
+  --color-success-600: color-mix(in oklab, #3b2e27 20%, #5c6b5d);
+  --color-success-650: color-mix(in oklab, #3b2e27 30%, #5c6b5d);
+  --color-success-700: color-mix(in oklab, #3b2e27 40%, #5c6b5d);
+  --color-success-750: color-mix(in oklab, #3b2e27 50%, #5c6b5d);
+  --color-success-800: color-mix(in oklab, #3b2e27 60%, #5c6b5d);
+  --color-success-850: color-mix(in oklab, #3b2e27 70%, #5c6b5d);
+  --color-success-900: color-mix(in oklab, #3b2e27 80%, #5c6b5d);
+  --color-success-950: color-mix(in oklab, #3b2e27 90%, #5c6b5d);
+}
+
+::selection {
+  background: #5c6b5d;
+  color: #ede8e0;
+}
+
+/* Brand wordmark, used by the custom Logo and Icon components */
+.admin-wordmark {
+  color: var(--color-base-1000);
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+
+.admin-brand {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.admin-brand__rule {
+  background: #5c6b5d;
+  display: block;
+  height: 1px;
+  width: 2.5rem;
+}

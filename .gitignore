@@ -1,0 +1,54 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# next.js build output
+/.next/
+/out/
+/build
+*.tsbuildinfo
+next-env.d.ts
+
+# environment: .env holds PAYLOAD_SECRET and Resend keys, never commit it.
+# .env.example (placeholders only) IS committed.
+.env
+.env*.local
+
+# local database: contains hashed credentials and content state.
+# Reproducible via `pnpm seed` (source assets live in src/seed/assets, committed).
+lichtblick.db
+lichtblick.db-*
+*.sqlite
+*.sqlite-*
+
+# uploaded/generated media: recreated from src/seed/assets by the seed,
+# or lives in Vercel Blob in production
+/media
+
+# deployment
+.vercel
+
+# editor / tooling
+/.idea/*
+!/.idea/runConfigurations
+
+# private working notes and AI tooling instructions, not part of the demo
+CLAUDE.md
+.claude/
+demo-project-plan.md
+
+# OS
+.DS_Store
+*.pem
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# testing (if ever re-added)
+/coverage
+/test-results/
+/playwright-report/
