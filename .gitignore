@@ -10,10 +10,10 @@
 *.tsbuildinfo
 next-env.d.ts
 
-# environment: .env holds PAYLOAD_SECRET and Resend keys, never commit it.
-# .env.example (placeholders only) IS committed.
-.env
-.env*.local
+# environment: any .env* holds PAYLOAD_SECRET and Resend keys, never commit them.
+# Only .env.example (placeholders) is tracked.
+.env*
+!.env.example
 
 # local database: contains hashed credentials and content state.
 # Reproducible via `pnpm seed` (source assets live in src/seed/assets, committed).

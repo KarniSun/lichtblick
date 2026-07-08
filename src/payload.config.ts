@@ -37,6 +37,11 @@ export default buildConfig({
   collections: [Projects, Media, Users],
   globals: [Settings, Homepage, StudioPage],
   editor: lexicalEditor(),
+  // The frontend reads exclusively via the Payload local API; GraphQL is unused
+  // attack surface (incl. auth mutations), so it is turned off entirely.
+  graphQL: {
+    disable: true,
+  },
   i18n: {
     supportedLanguages: { de },
     fallbackLanguage: 'de',

@@ -40,6 +40,7 @@ export function ContactForm() {
           className={fieldClasses}
           defaultValue={state.values?.name}
           id="contact-name"
+          maxLength={100}
           name="name"
           required
           type="text"
@@ -68,6 +69,7 @@ export function ContactForm() {
           className={fieldClasses}
           defaultValue={state.values?.message}
           id="contact-message"
+          maxLength={5000}
           minLength={10}
           name="message"
           required

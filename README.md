@@ -50,7 +50,15 @@ To reseed from scratch: stop the server, delete `lichtblick.db`, `media/`, and `
 
 ## Environment
 
-See `.env.example`. `RESEND_API_KEY` / `CONTACT_TO_EMAIL` / `CONTACT_FROM_EMAIL` enable real email delivery for the contact form; without them submissions are logged to the server console.
+See `.env.example`. `RESEND_API_KEY` + `CONTACT_TO_EMAIL` enable real email delivery for the contact form (both required in production; `CONTACT_FROM_EMAIL` is optional). Locally, with no `RESEND_API_KEY`, submissions are logged to the console instead of sent.
+
+## Deploying (checklist)
+
+Before the site is publicly reachable:
+
+1. Set env vars: a fresh `PAYLOAD_SECRET`, `ADMIN_EMAIL` + `ADMIN_PASSWORD` (the seed uses these instead of the public demo credentials), `DATABASE_URL`, `NEXT_PUBLIC_SITE_URL`, and — if the contact form should send — `RESEND_API_KEY` + `CONTACT_TO_EMAIL`.
+2. **Seed before exposing the URL.** Payload's first-user registration means whoever first reaches `/admin` on an empty database can claim the admin account. Run `pnpm seed` (with the admin env vars set) as part of the deploy, before the site is linkable.
+3. Media and the SQLite file do not persist on serverless (Vercel) — move uploads to a storage adapter (e.g. Vercel Blob) and the database to a hosted provider first.
 
 ## Development notes
 
