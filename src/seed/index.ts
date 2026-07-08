@@ -3,7 +3,9 @@ import { getPayload, type Payload } from 'payload'
 
 import config from '../payload.config'
 
-import { imageBuffer, PALETTES, type Palette, type Variant } from './images'
+import { slugify } from '../lib/slug'
+
+import { imageBuffer } from './images'
 import { richText } from './richText'
 
 // Production: set ADMIN_EMAIL and ADMIN_PASSWORD in the environment so the
@@ -18,13 +20,11 @@ type ProjectSeed = {
   featured: boolean
   location: string
   materials: string[]
-  palette: Palette
   quote: { attribution: string; text: string }
   summary: string
   text1: string[]
   text2: string[]
   title: string
-  variants: [Variant, Variant, Variant]
   year: number
 }
 
@@ -36,8 +36,6 @@ const PROJECTS: ProjectSeed[] = [
     year: 2024,
     category: 'residential',
     featured: true,
-    palette: PALETTES[0],
-    variants: ['arch', 'facade', 'diagonal'],
     summary:
       'Ein Wohnhaus am südlichen Stadtrand, das sich mit großen Öffnungen zum Wald hin ausrichtet und nach innen Ruhe schafft.',
     text1: [
@@ -64,8 +62,6 @@ const PROJECTS: ProjectSeed[] = [
     year: 2023,
     category: 'interior',
     featured: true,
-    palette: PALETTES[2],
-    variants: ['disc', 'columns', 'facade'],
     summary:
       'Umbau einer Gründerzeit-Etage zu einem Atelier mit Galerie: Bestand und Einbauten treten in einen ruhigen Dialog.',
     text1: [
@@ -91,8 +87,6 @@ const PROJECTS: ProjectSeed[] = [
     year: 2024,
     category: 'commercial',
     featured: true,
-    palette: PALETTES[1],
-    variants: ['facade', 'diagonal', 'columns'],
     summary:
       'Ein Bürohaus in Holzhybridbauweise, dessen gestaffelte Fassade den Maßstab des Viertels aufnimmt.',
     text1: [
@@ -119,8 +113,6 @@ const PROJECTS: ProjectSeed[] = [
     year: 2022,
     category: 'residential',
     featured: true,
-    palette: PALETTES[4],
-    variants: ['disc', 'arch', 'stairs'],
     summary:
       'Sanierung und Erweiterung einer Villa der 1920er Jahre am Hang über dem Ammersee.',
     text1: [
@@ -146,8 +138,6 @@ const PROJECTS: ProjectSeed[] = [
     year: 2025,
     category: 'interior',
     featured: false,
-    palette: PALETTES[3],
-    variants: ['columns', 'disc', 'diagonal'],
     summary:
       'Ausbau einer ehemaligen Werkstatt zu einer Galerie mit wechselnden Ausstellungsformaten.',
     text1: [
@@ -172,8 +162,6 @@ const PROJECTS: ProjectSeed[] = [
     year: 2023,
     category: 'commercial',
     featured: false,
-    palette: PALETTES[5],
-    variants: ['stairs', 'facade', 'arch'],
     summary:
       'Umnutzung einer Industriehalle zu Studios und Werkstätten für die Kreativwirtschaft.',
     text1: [
@@ -198,12 +186,10 @@ async function createImage(
   payload: Payload,
   name: string,
   alt: string,
-  variant: Variant,
-  palette: Palette,
   width: number,
   height: number,
 ): Promise<number> {
-  const data = await imageBuffer(name, variant, palette, width, height)
+  const data = await imageBuffer(name, width, height)
   const media = await payload.create({
     collection: 'media',
     data: { alt },
@@ -247,20 +233,13 @@ async function seed() {
   for (const [index, seed] of PROJECTS.entries()) {
     payload.logger.info(`Seeding project: ${seed.title}`)
 
-    const slugBase = seed.title
-      .toLowerCase()
-      .replace(/ä/g, 'ae')
-      .replace(/ö/g, 'oe')
-      .replace(/ü/g, 'ue')
-      .replace(/ß/g, 'ss')
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '')
+    const slugBase = slugify(seed.title)
 
     const [heroId, detailAId, detailBId, fullId] = await Promise.all([
-      createImage(payload, `${slugBase}-hero`, `${seed.title}, Außenansicht`, seed.variants[0], seed.palette, 2400, 1600),
-      createImage(payload, `${slugBase}-detail-a`, `${seed.title}, Detail`, seed.variants[1], seed.palette, 1500, 1875),
-      createImage(payload, `${slugBase}-detail-b`, `${seed.title}, Innenraum`, seed.variants[2], seed.palette, 1500, 1875),
-      createImage(payload, `${slugBase}-full`, `${seed.title}, Perspektive`, seed.variants[1], seed.palette, 2400, 1500),
+      createImage(payload, `${slugBase}-hero`, `${seed.title}, Außenansicht`, 2400, 1600),
+      createImage(payload, `${slugBase}-detail-a`, `${seed.title}, Detail`, 1500, 1875),
+      createImage(payload, `${slugBase}-detail-b`, `${seed.title}, Innenraum`, 1500, 1875),
+      createImage(payload, `${slugBase}-full`, `${seed.title}, Perspektive`, 2400, 1500),
     ])
 
     const project = await payload.create({
@@ -322,8 +301,6 @@ async function seed() {
     payload,
     'homepage-hero',
     'Wohnraum im Altbau, Kalkputz, Holz und warmes Licht',
-    'arch',
-    PALETTES[0],
     2400,
     1600,
   )

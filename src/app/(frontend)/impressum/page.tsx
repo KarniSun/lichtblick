@@ -10,7 +10,7 @@ export default function ImpressumPage() {
     <div className="mx-auto max-w-2xl px-6 pb-16 pt-28 md:pb-24 md:pt-36">
       <h1 className="font-display text-4xl tracking-tight">Impressum</h1>
       <div className="mt-10 space-y-6 text-sm leading-relaxed text-muted">
-        <p className="text-ink">
+        <p className="text-nussbaum">
           Hinweis: Dies ist ein fiktives Demo-Projekt. Studio Lichtblick existiert nicht.
         </p>
         <p>

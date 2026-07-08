@@ -12,12 +12,9 @@
      passes WCAG AA. Plain #a69b8d only clears ~2.2:1 and fails. */
   --color-muted: #6b6157;
 
-  /* Aliases used by pre-redesign pages — same palette, older names */
-  --color-paper: #ede8e0;
-  --color-ink: #3b2e27;
-  --color-stone: #a69b8d;
+  /* Hairline / border colour: Rauchquarz softened into Kalkputz. Semantic
+     (used as border-line / bg-line), not a palette alias. */
   --color-line: color-mix(in oklab, #a69b8d 50%, #ede8e0);
-  --color-umber: #5c6b5d;
 
   --font-sans: var(--font-hanken), 'Helvetica Neue', Arial, sans-serif;
   --font-display: var(--font-fraunces), Georgia, serif;

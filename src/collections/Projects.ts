@@ -2,16 +2,7 @@ import type { CollectionConfig, FieldHook } from 'payload'
 
 import { Facts, FullImage, Quote, TextBlock, TwoImage } from '../blocks'
 import { revalidateProject, revalidateProjectDelete } from '../hooks/revalidate'
-
-const slugify = (input: string): string =>
-  input
-    .toLowerCase()
-    .replace(/ä/g, 'ae')
-    .replace(/ö/g, 'oe')
-    .replace(/ü/g, 'ue')
-    .replace(/ß/g, 'ss')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)/g, '')
+import { slugify } from '../lib/slug'
 
 const formatSlug: FieldHook = ({ data, value }) => {
   if (typeof value === 'string' && value.length > 0) {

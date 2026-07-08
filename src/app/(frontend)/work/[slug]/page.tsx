@@ -72,7 +72,7 @@ export default async function ProjectPage({ params }: Props) {
   return (
     <article>
       {/* Hero */}
-      <div className="relative h-[70svh] min-h-[420px] bg-ink">
+      <div className="relative h-[70svh] min-h-[420px] bg-nussbaum">
         {heroImage && (
           <Image
             alt={heroImage.alt || project.title}
@@ -124,7 +124,7 @@ export default async function ProjectPage({ params }: Props) {
           {next ? (
             <Link className="group text-sm" href={`/work/${next.slug}`}>
               <span className="label block">← Vorheriges Projekt</span>
-              <span className="mt-1 block font-display text-lg tracking-tight text-muted transition-colors group-hover:text-ink">
+              <span className="mt-1 block font-display text-lg tracking-tight text-muted transition-colors group-hover:text-nussbaum">
                 {next.title}
               </span>
             </Link>
@@ -134,7 +134,7 @@ export default async function ProjectPage({ params }: Props) {
           {previous ? (
             <Link className="group text-right text-sm" href={`/work/${previous.slug}`}>
               <span className="label block">Nächstes Projekt →</span>
-              <span className="mt-1 block font-display text-lg tracking-tight text-muted transition-colors group-hover:text-ink">
+              <span className="mt-1 block font-display text-lg tracking-tight text-muted transition-colors group-hover:text-nussbaum">
                 {previous.title}
               </span>
             </Link>

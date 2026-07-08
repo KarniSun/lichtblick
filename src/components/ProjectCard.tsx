@@ -28,10 +28,10 @@ export function ProjectCard({ bleed = false, project }: { bleed?: boolean; proje
           />
         )}
         {/* hover reveal - name / location / year */}
-        <div className="absolute inset-0 hidden items-end bg-ink/0 transition-colors duration-500 group-hover:bg-ink/45 md:flex">
+        <div className="absolute inset-0 hidden items-end bg-nussbaum/0 transition-colors duration-500 group-hover:bg-nussbaum/45 md:flex">
           <div className="w-full p-6 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-            <p className="font-display text-xl text-paper">{project.title}</p>
-            <p className="mt-1 text-sm text-paper/80">
+            <p className="font-display text-xl text-kalk">{project.title}</p>
+            <p className="mt-1 text-sm text-kalk/80">
               {project.location} · {project.year}
             </p>
           </div>

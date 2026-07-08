@@ -44,7 +44,7 @@ export default async function WorkPage({ searchParams }: Props) {
           <Link
             className={cn(
               'text-sm transition-colors',
-              !activeCategory ? 'text-ink' : 'text-muted hover:text-ink',
+              !activeCategory ? 'text-nussbaum' : 'text-muted hover:text-nussbaum',
             )}
             href="/work"
           >
@@ -54,7 +54,7 @@ export default async function WorkPage({ searchParams }: Props) {
             <Link
               className={cn(
                 'text-sm transition-colors',
-                activeCategory === category ? 'text-ink' : 'text-muted hover:text-ink',
+                activeCategory === category ? 'text-nussbaum' : 'text-muted hover:text-nussbaum',
               )}
               href={`/work?kategorie=${category}`}
               key={category}

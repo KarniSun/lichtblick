@@ -7,7 +7,7 @@ import { sendContactMessage, type ContactFormState } from '@/app/(frontend)/stud
 const initialState: ContactFormState = { status: 'idle' }
 
 const fieldClasses =
-  'w-full border-b border-line bg-transparent py-3 text-base outline-none transition-colors placeholder:text-muted/60 focus:border-ink'
+  'w-full border-b border-line bg-transparent py-3 text-base outline-none transition-colors placeholder:text-muted/60 focus:border-nussbaum'
 
 export function ContactForm() {
   const [state, formAction, pending] = useActionState(sendContactMessage, initialState)
@@ -77,7 +77,7 @@ export function ContactForm() {
         />
       </div>
 
-      {state.status === 'error' && <p className="text-sm text-umber">{state.message}</p>}
+      {state.status === 'error' && <p className="text-sm text-patina">{state.message}</p>}
 
       <button
         className="border border-nussbaum px-8 py-3 text-sm transition-colors hover:bg-nussbaum hover:text-kalk disabled:opacity-50"
