@@ -36,7 +36,7 @@ export default function OpengraphImage() {
           </div>
           <div style={{ display: 'flex', width: 64, height: 3, backgroundColor: PATINA, marginTop: 28 }} />
           <div style={{ display: 'flex', fontSize: 34, color: MUTED, marginTop: 28, maxWidth: 760 }}>
-            Innenräume aus Kalkputz, Holz und Licht. Für Wohnen und Arbeit.
+            Räume aus Kalkputz, Holz und ruhigem Licht. Zum Wohnen, Arbeiten und Ankommen.
           </div>
         </div>
 

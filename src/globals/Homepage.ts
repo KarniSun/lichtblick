@@ -37,9 +37,22 @@ export const Homepage: GlobalConfig = {
       label: 'Leitsatz',
       type: 'text',
       required: true,
-      defaultValue: 'Räume aus Kalkputz, Holz und ruhigem Licht. Zum Wohnen, Arbeiten und Ankommen.',
+      defaultValue: 'Räume aus Kalkputz, Holz und warmem Licht. Zum Wohnen, Arbeiten und Ankommen.',
       admin: {
         description: 'Eine Zeile, unten links im Hero: leise, kein Werbeslogan.',
+      },
+    },
+    {
+      name: 'heroTextTone',
+      label: 'Leitsatz-Darstellung',
+      type: 'select',
+      defaultValue: 'light',
+      options: [
+        { label: 'Dunkler Text (für helle Bilder)', value: 'dark' },
+        { label: 'Heller Text (für dunkle Bilder)', value: 'light' },
+      ],
+      admin: {
+        description: 'Farbe des Leitsatzes passend zum Hero-Bild wählen.',
       },
     },
     {

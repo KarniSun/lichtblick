@@ -31,7 +31,8 @@ export default async function HomePage() {
       ? (homepage.heroProject as Project)
       : featured[0]
 
-  const heroImage = heroProject ? resolveImage(heroProject.heroImage, 'large') : null
+  // dedicated homepage hero image wins; the hero project's image is the fallback
+  const heroImage = resolveImage(homepage.heroImage ?? heroProject?.heroImage, 'large')
 
   return (
     <>
@@ -48,14 +49,23 @@ export default async function HomePage() {
             src={heroImage.url}
           />
         )}
-        {/* Subtle bottom scrim so the Kalkputz statement stays legible over any
-            hero - including light images - without washing out the photograph. */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-nussbaum/55 to-transparent"
-        />
+        {/* Statement tone is editor-controlled (Leitsatz-Darstellung): dark text
+            sits directly on light heroes; light text gets a subtle bottom scrim
+            so it stays legible over dark heroes without washing out the photo. */}
+        {homepage.heroTextTone === 'light' && (
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-nussbaum/55 to-transparent"
+          />
+        )}
         {/* h1: the statement is the page's headline, keeps heading order valid */}
-        <h1 className="absolute bottom-8 left-6 max-w-md text-base font-normal leading-relaxed text-kalk [text-shadow:0_1px_10px_rgba(59,46,39,0.5)] md:left-10 md:text-sm">
+        <h1
+          className={`absolute bottom-8 left-6 max-w-md text-base font-normal leading-relaxed md:left-10 md:text-sm ${
+            homepage.heroTextTone === 'light'
+              ? 'text-kalk [text-shadow:0_1px_10px_rgba(59,46,39,0.5)]'
+              : 'text-nussbaum'
+          }`}
+        >
           {homepage.heroStatement}
         </h1>
       </section>

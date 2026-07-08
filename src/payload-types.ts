@@ -613,13 +613,21 @@ export interface Setting {
 export interface Homepage {
   id: number;
   /**
-   * Das Titelbild dieses Projekts wird zum Hero der Startseite. Ohne Auswahl wird das neueste hervorgehobene Projekt verwendet.
+   * Eigenes Bild für den Hero der Startseite. Ohne Auswahl wird das Titelbild des Hero-Projekts verwendet.
+   */
+  heroImage?: (number | null) | Media;
+  /**
+   * Ohne eigenes Hero-Bild wird das Titelbild dieses Projekts zum Hero der Startseite. Ohne Auswahl wird das neueste hervorgehobene Projekt verwendet.
    */
   heroProject?: (number | null) | Project;
   /**
    * Eine Zeile, unten links im Hero: leise, kein Werbeslogan.
    */
   heroStatement: string;
+  /**
+   * Farbe des Leitsatzes passend zum Hero-Bild wählen.
+   */
+  heroTextTone?: ('dark' | 'light') | null;
   philosophyHeading?: string | null;
   /**
    * Zwei bis drei Sätze zur Arbeitsweise des Studios.
@@ -698,8 +706,10 @@ export interface SettingsSelect<T extends boolean = true> {
  * via the `definition` "homepage_select".
  */
 export interface HomepageSelect<T extends boolean = true> {
+  heroImage?: T;
   heroProject?: T;
   heroStatement?: T;
+  heroTextTone?: T;
   philosophyHeading?: T;
   philosophy?: T;
   updatedAt?: T;

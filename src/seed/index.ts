@@ -317,11 +317,24 @@ async function seed() {
     context: { disableRevalidate: true },
   })
 
+  // dedicated homepage hero (src/seed/assets/homepage-hero.jpg), independent of the projects
+  const homepageHeroId = await createImage(
+    payload,
+    'homepage-hero',
+    'Wohnraum im Altbau, Kalkputz, Holz und warmes Licht',
+    'arch',
+    PALETTES[0],
+    2400,
+    1600,
+  )
+
   await payload.updateGlobal({
     slug: 'homepage',
     data: {
+      heroImage: homepageHeroId,
       heroProject: heroProjectId,
-      heroStatement: 'Innenräume aus Kalkputz, Holz und Licht. Für Wohnen und Arbeit.',
+      heroStatement: 'Räume aus Kalkputz, Holz und warmem Licht. Zum Wohnen, Arbeiten und Ankommen.',
+      heroTextTone: 'light',
       philosophyHeading: 'Haltung',
       philosophy:
         'Wir beginnen mit dem, was da ist: dem Licht, dem Bestand, den Proportionen. Materialien wählen wir so, dass sie altern dürfen: Eiche, Kalkputz, Stein. Was ein Raum braucht, bleibt. Alles andere lassen wir weg.',
