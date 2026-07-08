@@ -50,7 +50,7 @@ To reseed from scratch: stop the server, delete `lichtblick.db`, `media/`, and `
 
 ## Environment
 
-See `.env.example`. `RESEND_API_KEY` + `CONTACT_TO_EMAIL` enable real email delivery for the contact form (both required in production; `CONTACT_FROM_EMAIL` is optional). Locally, with no `RESEND_API_KEY`, submissions are logged to the console instead of sent.
+See `.env.example`. By default the contact form runs in demo mode: it validates and confirms submissions but sends nothing and stores nothing (no visitor data is collected). Setting `RESEND_API_KEY` + `CONTACT_TO_EMAIL` switches on real email delivery (`CONTACT_FROM_EMAIL` optional).
 
 ## Deploying (checklist)
 

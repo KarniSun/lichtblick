@@ -50,18 +50,10 @@ export async function sendContactMessage(
   const apiKey = process.env.RESEND_API_KEY
 
   if (!apiKey) {
-    // No email provider configured. Fine for local dev; in production this is a
-    // misconfiguration, so fail loudly instead of pretending it was sent.
-    if (process.env.NODE_ENV === 'production') {
-      console.error('[contact] RESEND_API_KEY not set in production; message not sent')
-      return {
-        status: 'error',
-        message:
-          'Die Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es später erneut.',
-        values,
-      }
-    }
-    console.info('[contact] no RESEND_API_KEY - message not sent (dev):', { name, email })
+    // Demo mode (the default): no email provider is configured on purpose. The
+    // form validates and confirms, but the submission is neither sent nor
+    // logged - the demo deliberately collects no visitor data. Set
+    // RESEND_API_KEY + CONTACT_TO_EMAIL to turn on real delivery.
     return { status: 'success', message: 'Vielen Dank für Ihre Nachricht.' }
   }
 
