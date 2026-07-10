@@ -52,13 +52,21 @@ To reseed from scratch: stop the server, delete `lichtblick.db`, `media/`, and `
 
 See `.env.example`. By default the contact form runs in demo mode: it validates and confirms submissions but sends nothing and stores nothing (no visitor data is collected). Setting `RESEND_API_KEY` + `CONTACT_TO_EMAIL` switches on real email delivery (`CONTACT_FROM_EMAIL` optional).
 
-## Deploying (checklist)
+## Deploying to Vercel (checklist)
 
-Before the site is publicly reachable:
+Frontend + Payload CMS deploy as one Vercel project. The two stateful pieces attach as services because serverless compute is ephemeral: a **Turso** (libSQL) database — the same `db-sqlite` adapter, just a remote URL — and **Vercel Blob** for uploads. The `file:` database and local `/media` folder are dev-only.
 
-1. Set env vars: a fresh `PAYLOAD_SECRET`, `ADMIN_EMAIL` + `ADMIN_PASSWORD` (the seed uses these instead of the public demo credentials), `DATABASE_URL`, `NEXT_PUBLIC_SITE_URL`, and — if the contact form should send — `RESEND_API_KEY` + `CONTACT_TO_EMAIL`.
-2. **Seed before exposing the URL.** Payload's first-user registration means whoever first reaches `/admin` on an empty database can claim the admin account. Run `pnpm seed` (with the admin env vars set) as part of the deploy, before the site is linkable.
-3. Media and the SQLite file do not persist on serverless (Vercel) — move uploads to a storage adapter (e.g. Vercel Blob) and the database to a hosted provider first.
+1. **Create the services:** a Turso database (get its `libsql://…turso.io` URL + a read-write auth token) and a Vercel Blob store (get `BLOB_READ_WRITE_TOKEN`).
+2. **Seed the database once, before the URL is public.** Payload's first-user registration means whoever first reaches `/admin` on an empty DB can claim the admin account — so seed first. Run locally against the remote services (keeps secrets in your shell, not in files):
+   ```
+   DATABASE_URL='libsql://…turso.io' DATABASE_AUTH_TOKEN='…' \
+   BLOB_READ_WRITE_TOKEN='…' ADMIN_EMAIL='you@example.com' ADMIN_PASSWORD='…' \
+   pnpm seed
+   ```
+   This creates the schema, uploads media to Blob, and creates the admin with your credentials.
+3. **Deploy:** import the repo into Vercel, set the env vars below, and (for a German audience) set the function region to Frankfurt/Dublin near the database. `PAYLOAD_SECRET` (fresh), `DATABASE_URL`, `DATABASE_AUTH_TOKEN`, `BLOB_READ_WRITE_TOKEN`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `NEXT_PUBLIC_SITE_URL`; optionally `RESEND_API_KEY` + `CONTACT_TO_EMAIL` for real contact-form delivery.
+
+Schema changes after launch use Payload migrations (`payload migrate:create` → `payload migrate`); the initial deploy needs none because seeding establishes the schema.
 
 ## Development notes
 

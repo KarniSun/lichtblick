@@ -1,5 +1,6 @@
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { de } from '@payloadcms/translations/languages/de'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -52,8 +53,23 @@ export default buildConfig({
   },
   db: sqliteAdapter({
     client: {
+      // Local dev: a SQLite file. Production: a remote Turso (libSQL) URL
+      // (libsql://…turso.io) plus an auth token — same adapter, one engine.
       url: process.env.DATABASE_URL || 'file:./lichtblick.db',
+      authToken: process.env.DATABASE_AUTH_TOKEN,
     },
   }),
   sharp,
+  // Media lives on the local disk in dev; on Vercel Blob in production. The
+  // plugin only activates when its token is present, so local dev and the
+  // reseed workflow keep using the filesystem.
+  plugins: process.env.BLOB_READ_WRITE_TOKEN
+    ? [
+        vercelBlobStorage({
+          enabled: true,
+          collections: { media: true },
+          token: process.env.BLOB_READ_WRITE_TOKEN,
+        }),
+      ]
+    : [],
 })

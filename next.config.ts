@@ -16,6 +16,14 @@ const nextConfig: NextConfig = {
         pathname: '/api/media/file/**',
       },
     ],
+    // In production media is served from Vercel Blob; without this next/image
+    // rejects the host. Harmless in dev (media stays on the local path above).
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '*.public.blob.vercel-storage.com',
+      },
+    ],
     // Media files only change when the seed/CMS replaces them (new URL), so
     // let the optimizer cache serve repeat visits for a month instead of 4h.
     minimumCacheTTL: 2678400,
