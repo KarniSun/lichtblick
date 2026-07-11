@@ -9,29 +9,29 @@ export default function ImpressumPage() {
   return (
     <div className="mx-auto max-w-2xl px-6 pb-16 pt-28 md:pb-24 md:pt-36">
       <h1 className="font-display text-4xl tracking-tight">Impressum</h1>
-      <div className="mt-10 space-y-6 text-sm leading-relaxed text-muted">
+      <div className="mt-10 space-y-4 text-sm leading-relaxed text-muted">
         <p className="text-nussbaum">
-          Hinweis: Dies ist ein fiktives Demo-Projekt. Studio Lichtblick existiert nicht.
+          Hinweis: Dies ist ein fiktives Demo-Projekt. Das „Studio Lichtblick“ ist ein erfundenes
+          Studio; sämtliche Projekte, Namen und Kontaktdaten im Inhalt der Website sind frei
+          erfunden. Die Seite dient ausschließlich als Portfolio-Demonstration.
         </p>
+
+        <h2 className="mt-8 font-display text-lg tracking-tight text-nussbaum">
+          Angaben gemäß § 5 DDG
+        </h2>
         <p>
-          Studio Lichtblick GmbH
+          Diese Demo-Website wird bereitgestellt von:
           <br />
-          Musterstraße 12
+          Marcel Hoang
           <br />
-          80331 München
+          {/* TODO: vor dem Deploy durch eine echte Kontakt-E-Mail ersetzen */}
+          E-Mail: [deine Kontakt-E-Mail]
         </p>
-        <p>
-          Vertreten durch: Anna Muster
-          <br />
-          E-Mail: studio@lichtblick.example
-          <br />
-          Telefon: +49 89 000000
-        </p>
-        <p>
-          Handelsregister: Amtsgericht München, HRB 000000
-          <br />
-          USt-IdNr.: DE000000000
-        </p>
+
+        <h2 className="mt-8 font-display text-lg tracking-tight text-nussbaum">
+          Verantwortlich für den Inhalt
+        </h2>
+        <p>Marcel Hoang</p>
       </div>
     </div>
   )
