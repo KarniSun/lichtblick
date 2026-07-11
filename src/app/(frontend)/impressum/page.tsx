@@ -24,8 +24,7 @@ export default function ImpressumPage() {
           <br />
           Marcel Hoang
           <br />
-          {/* TODO: vor dem Deploy durch eine echte Kontakt-E-Mail ersetzen */}
-          E-Mail: [deine Kontakt-E-Mail]
+          E-Mail: marcelhoang@web.de
         </p>
 
         <h2 className="mt-8 font-display text-lg tracking-tight text-nussbaum">
